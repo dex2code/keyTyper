@@ -24,8 +24,8 @@
 
 #define MOUSE_MOVE_PX 6
 
-#define PKEY_HEAD "Head"
-#define PKEY_TAIL "Tail"
+#define PKEY_HEAD ""
+#define PKEY_TAIL ""
 
 #define DEBOUNCE_MS 35
 
@@ -174,10 +174,7 @@ void loop() {
     k3_hash_isPressedFlag = true;
     lastActionAt = millis();
     Serial.println((String) F("--> HASH key pressed at [") + lastActionAt + F("]"));
-    if (isOledOn) {
-      hashClickDo();
-      updateOLED();
-    }
+    hashClickDo();
   }
   if (!k4_star_isPressedFlag && k4_star_isPressedState() && (lastActionAt - millis()) > DEBOUNCE_MS) {
     k4_star_isPressedFlag = true;
@@ -189,7 +186,10 @@ void loop() {
     k5_blue_isPressedFlag = true;
     lastActionAt = millis();
     Serial.println((String) F("--> BLUE key pressed at [") + lastActionAt + F("]"));
-    blueClickDo();
+    if (isOledOn) {
+      blueClickDo();
+      updateOLED();
+    }
   }
 
   if (millis() - tmrLast >= TIMER_DELAY) {
