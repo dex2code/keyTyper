@@ -174,7 +174,10 @@ void loop() {
     k3_hash_isPressedFlag = true;
     lastActionAt = millis();
     Serial.println((String) F("--> HASH key pressed at [") + lastActionAt + F("]"));
-    hashClickDo();
+    if (isOledOn) {
+      hashClickDo();
+      updateOLED();
+    }
   }
   if (!k4_star_isPressedFlag && k4_star_isPressedState() && (lastActionAt - millis()) > DEBOUNCE_MS) {
     k4_star_isPressedFlag = true;
@@ -186,10 +189,7 @@ void loop() {
     k5_blue_isPressedFlag = true;
     lastActionAt = millis();
     Serial.println((String) F("--> BLUE key pressed at [") + lastActionAt + F("]"));
-    if (isOledOn) {
-      blueClickDo();
-      updateOLED();
-    }
+    blueClickDo();
   }
 
   if (millis() - tmrLast >= TIMER_DELAY) {
