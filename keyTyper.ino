@@ -54,7 +54,7 @@ bool k1_up_isPressedFlag = false;
 bool k2_down_isPressedFlag = false;
 bool k3_hash_isPressedFlag = false;
 bool k4_star_isPressedFlag = false;
-bool k5_blue_isPressedFlag = false;
+//bool k5_blue_isPressedFlag = false;
 
 uint32_t lastActionAt = 0;
 
@@ -147,10 +147,13 @@ void loop() {
     k4_star_isPressedFlag = false;
     lastActionAt = millis();
   }
+
+/*
   if (k5_blue_isPressedFlag && !k5_blue_isPressedState() && (lastActionAt - millis()) > DEBOUNCE_MS) {
     k5_blue_isPressedFlag = false;
     lastActionAt = millis();
   }
+*/
 
   if (!k1_up_isPressedFlag && k1_up_isPressedState() && (lastActionAt - millis()) > DEBOUNCE_MS) {
     k1_up_isPressedFlag = true;
@@ -185,12 +188,15 @@ void loop() {
     Serial.println((String) F("--> STAR key pressed at [") + lastActionAt + F("]"));
     isMouseOn = !isMouseOn;
   }
+
+/*
   if (!k5_blue_isPressedFlag && k5_blue_isPressedState() && (lastActionAt - millis()) > DEBOUNCE_MS) {
     k5_blue_isPressedFlag = true;
     lastActionAt = millis();
     Serial.println((String) F("--> BLUE key pressed at [") + lastActionAt + F("]"));
     blueClickDo();
   }
+*/
 
   if (millis() - tmrLast >= TIMER_DELAY) {
     tmrLast = millis();
