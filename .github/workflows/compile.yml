@@ -1,0 +1,28 @@
+name: compile
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install arduino-cli
+        run: |
+          # pinned for reproducible builds
+          curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sudo env ARDUINO_CLI_VERSION=1.6.0 BINDIR=/usr/local/bin sh
+          arduino-cli version
+
+      - name: Install platform and libraries
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr@1.8.7
+          # versions pinned for reproducible builds (transitive deps included)
+          arduino-cli lib install Keyboard@1.0.6 Mouse@1.0.1 "Adafruit SSD1306@2.5.16" "Adafruit GFX Library@1.12.6" "Adafruit BusIO@1.17.4"
+
+      - name: Compile
+        run: arduino-cli compile --fqbn arduino:avr:leonardo --warnings all .

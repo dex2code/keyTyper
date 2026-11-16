@@ -8,5 +8,5 @@ void downClickDo() {
     }
   }
 
-  pkeyChanges--;
+  pkeyDirty = true;
 }
